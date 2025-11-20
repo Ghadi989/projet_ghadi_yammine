@@ -1,8 +1,13 @@
 package org.formation.proxibanque.model;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Client {
 
     @Id
