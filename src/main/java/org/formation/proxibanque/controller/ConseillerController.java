@@ -1,6 +1,8 @@
 package org.formation.proxibanque.controller;
 
 import org.formation.proxibanque.model.Client;
+import org.formation.proxibanque.model.Compte;
+import org.formation.proxibanque.request.VirementRequest;
 import org.formation.proxibanque.service.ConseillerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,11 @@ public class ConseillerController {
     @DeleteMapping("clients/{id}")
     public void deleteClient(@PathVariable long id) {
         conseillerService.deleteById(id);
+    }
+
+    @PostMapping("clients/virement/")
+    public void virementCompte(@RequestBody VirementRequest virementRequest) {
+
     }
 }
 

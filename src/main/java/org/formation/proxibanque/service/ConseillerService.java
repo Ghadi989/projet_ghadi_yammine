@@ -2,6 +2,7 @@ package org.formation.proxibanque.service;
 
 import org.formation.proxibanque.exception.ClientNotFoundException;
 import org.formation.proxibanque.model.Client;
+import org.formation.proxibanque.model.Compte;
 import org.formation.proxibanque.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,11 @@ public class ConseillerService {
     public void deleteById(Long id) {
         getClientOrThrow(id);
         clientRepository.deleteById(id);
+    }
+
+    public void virementCompte(Compte sender, Compte receiver, Double amount) {
+        sender.setSolde(sender.getSolde() - amount);
+        receiver.setSolde(receiver.getSolde() + amount);
     }
 }
 
