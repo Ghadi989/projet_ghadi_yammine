@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,14 +27,27 @@ public class Client {
     @JoinColumn(name = "conseiller_id")
     private Conseiller conseiller;
 
-    @OneToOne(mappedBy = "titulaire")
-    private CompteCourant compteCourant;
-
-    @OneToOne(mappedBy = "titulaire")
-    private CompteEpargne compteEpargne;
+    @OneToMany(mappedBy = "titulaire", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Compte> comptes = new ArrayList<>();
 
     @OneToMany(mappedBy = "client")
-    private List<CarteBancaire> cartes;
+    private List<CarteBancaire> cartes = new ArrayList<>();
+
+    public CompteCourant getCompteCourant() {
+        return comptes.stream()
+                .filter(c -> c instanceof CompteCourant)
+                .map(c -> (CompteCourant) c)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public CompteEpargne getCompteEpargne() {
+        return comptes.stream()
+                .filter(c -> c instanceof CompteEpargne)
+                .map(c -> (CompteEpargne) c)
+                .findFirst()
+                .orElse(null);
+    }
 
     public Client() {
     }

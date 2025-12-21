@@ -23,7 +23,7 @@ public abstract class Compte {
 
     private LocalDate dateOuverture = LocalDate.now();
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "client_id")
     private Client titulaire;
 
